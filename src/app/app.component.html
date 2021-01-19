@@ -1,0 +1,47 @@
+<div class="container mt-3">
+<h3 class="text-center">{{title}}</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">City Name</th>
+      <th scope="col">Weather</th>
+      <th scope="col">Weather Discription</th>
+	  <th scope="col">Sunrise</th>
+	  <th scope="col">Sunset</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let r of allcitiesRes; let i=index;">
+    <tr>
+      <th scope="row">{{ i+1 }}</th>
+	  <td style="cursor: pointer;color: #1976d2;" (click)="getSeaLevel(r.name)"
+	   data-toggle="modal" data-target="#exampleModal">{{r.name}}</td>
+	  <ng-container *ngFor="let d of r.weather">
+		<td>{{d.main}}</td>
+		<td>{{d.description}}</td>
+	  </ng-container>
+      <td>{{r.sys.sunrise * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>{{r.sys.sunset * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+    </tr>
+  </tbody>
+</table>
+<div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sea Level Report</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+		<p *ngFor="let res of fivedayRes">Sea level on <b>{{res.date}}: {{res.seaLevel}}</b>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
